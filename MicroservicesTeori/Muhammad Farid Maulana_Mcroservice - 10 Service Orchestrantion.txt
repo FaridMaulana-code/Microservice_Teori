@@ -1,0 +1,26 @@
+SERVICE ORCHESTRATION
+
+Service orchestration adalah pola desain dalam arsitektur mikroservice di mana satu mikroservis mengatur alur logika bisnis sistem dengan memanggil mikroservis lainnya menggunakan prosedur panggilan. Dalam kasus transaksi e-commerce, contohnya, service orchestration akan mengatur proses transaksi dari awal hingga akhir.
+
+Keuntungan dari service orchestration antara lain kemudahan dalam pembuatan karena logika bisnis terpusat di satu mikroservis, sehingga mudah dimengerti. Namun, ada juga beberapa kekurangan, seperti ketergantungan yang tinggi terhadap mikroservis lainnya, peningkatan waktu respons karena harus terkoneksi dengan mikroservis lain (terutama jika memanggil banyak layanan), dan risiko error yang lebih tinggi jika mikroservis lain mengalami masalah. Selain itu, jika perlu menambahkan mikroservis baru, perlu dilakukan perubahan pada mikroservis orchestrator.
+
+Jadi, meskipun service orchestration memiliki keuntungan dalam pengelolaan logika bisnis yang terpusat, namun perlu mempertimbangkan kekurangan-kekurangan tersebut dalam memilih pola desain untuk arsitektur mikroservice.
+
+aggregation berkomunikasi dengan microservice lain. scr garis besar ada dua jenis melakukan ggregation yaitu orchestration dan choreography. 
+
+-cara aggregation microservice berkimunikasi dgn microservice lain, jika menggunakan procedure invocation, maka 	dinamakan service orchestration pattern.
+-dalam service orchestration pattern, aggregation microservice bertugas untuk mengatur alur business logic sistem. 
+
+dalam sebuah kasus transaksi ecomerse, dapat dinamakan sbg service orchestration. 
+
+service orchestration akan direct/call service yang ditujunya. misalkan user akan melakukan transaksi dengn aggregation microservice. data yg diambil adalah memberservice untuk mengambil informasi member selanjutnya ke balance service, dan selanjutnya akan melakukan pembayaran di merchant service, selanjutnya akan mengirim email ke user dengan email service. 
+
+keuntungan service orchestration :
+- mudah dibuat, karena kode business logic akan terpusat di aggregation microservice. 
+- mudah dimengerti
+
+kekurangan :
+-aggregation microservice terlalu ketergantungan dgn microservice lain
+-akan lebih lambat karena harus terkoneksi dng microservice lain. semakin bnyak service yg dipanggil, akan semakin lambat response time nya
+-akan lebih mudah error jika microservice lain bermasalah
+-jika perlu microservice baru, perlu dilakukan perbuahan di aggregation microservice. 

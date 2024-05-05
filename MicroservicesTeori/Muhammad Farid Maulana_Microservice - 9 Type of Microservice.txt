@@ -1,0 +1,53 @@
+Microservices terbagi jadi 3 tipe :
+1. stateless microservice
+-Karakteristik: Stateless microservice tidak menyimpan status atau konteks transaksi sebelumnya. Setiap request yang 	diterima dianggap independen dan tidak tergantung pada request sebelumnya.
+-Keuntungan:
+	* Skalabilitas: Karena tidak menyimpan status, stateless microservice dapat dengan mudah di-scale secara 	horizontal untuk menangani beban yang lebih tinggi.
+	* Pengembangan yang lebih sederhana: Dengan tidak perlu mempertahankan status, pengembangan dan 	pemeliharaan 	kode menjadi lebih sederhana.
+2. persistence microservice
+-Karakteristik: Persistence microservice bertanggung jawab untuk mengelola data yang persisten, biasanya dalam 			database. Mereka dapat melakukan operasi CRUD (Create, Read, Update, Delete) pada data tersebut.
+-Keuntungan:
+	* Manajemen data terpusat: Dengan menggunakan persistence microservice, manajemen data dapat dilakukan 	secara 	terpusat, memungkinkan penggunaan data yang konsisten di seluruh aplikasi.
+	* Fleksibilitas: Dengan memiliki kontrol penuh atas database, persistence microservice memungkinkan 	penggunaan berbagai jenis database sesuai kebutuhan.
+3. aggregation microservice
+-Karakteristik: Aggregation microservice bertindak sebagai pengatur lalu lintas dan koordinator antara microservice 		lainnya. Mereka menggabungkan data atau fungsi dari beberapa microservice untuk memenuhi kebutuhan 		bisnis yang lebih kompleks.
+-Keuntungan:
+	* Pengelolaan kompleksitas: Dengan menyediakan layer agregasi, kompleksitas logika bisnis dapat diatur 	dengan 	lebih baik, memungkinkan setiap microservice bertanggung jawab pada tugas-tugas yang lebih 	sederhana.
+	* Fleksibilitas dalam integrasi: Aggregation microservice memungkinkan integrasi yang lebih fleksibel 	dengan 	microservice yang ada, serta penambahan atau perubahan layanan dengan lebih mudah.
+
+------------------------------------
+STATELESS MICROSERVICE
+-biasanya tidak memiliki database -> bisa punya, tapi tidak wajib punya db
+-digunakan untuk melakukan tugas sederhana -> tugas yg tidk terlalu kompleks
+-bisa digunakan juga sbg utility untuk microserv lain -> utk kebutuhan sprti membantu service lain. 
+-tidak bergantung dgn microserv lain -> running secara independent karena tugas yg sederhana. 
+
+
+contohnya email service dan sms service.
+
+--------------------------------------
+PERSISTENCE MICROSERVICE 
+-biasanya memiliki database -> bertugas sbg master database yg mengolah data.
+-Disebut master data microservice
+-biasa digunakan untuk mengolah data di database (CRUD)
+
+contoh persistence microserve
+
+terdapat 3 ->
+customer service untuk mengola data MySQL
+product service untuk mengolah data PostgreSQL
+order service untuk mengolah data mongodb
+
+kebanyakan persistence microserv menggunakan db, bisa tidak pakai db yg penting tugas nya mengolah data dan punya data.
+------------------------------------------
+AGGREGATION MICROSERVICE
+-tergantung dgn microservice lain
+-biasanya igunakan sebgai pusat business logic aplikasi
+-boleh memiliki database ataupun tidak
+-tidak bisa berdiri sendiri
+
+jika microservice lain mati, maka aggregation ini tidak optimal.
+
+contohnya : 
+-cart service -> seperti shoping cart di ecomerse. Ketika kita melakukan pemesanan,maka perlu ngambil data ke produk service, jika melakukan order kan mengakses data ke order service. 
+-payment service -> akan mengambil data ke order service dan mengirim ke payment gateway. 

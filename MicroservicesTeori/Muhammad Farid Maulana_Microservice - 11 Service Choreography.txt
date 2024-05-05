@@ -1,0 +1,23 @@
+SERVICE CHOREOGRAPHY
+
+Service choreography adalah pola desain dalam arsitektur mikroservis di mana komunikasi antara mikroservis dilakukan menggunakan pesan (messaging) tanpa melibatkan pemanggilan langsung seperti pada service orchestration. Dalam service choreography, setiap mikroservis harus cerdas dan mandiri, tidak hanya menunggu instruksi dari mikroservis agregasi.
+
+Dalam kasus transaksi e-commerce, misalnya, user hanya berinteraksi dengan satu layanan, yaitu layanan transaksi, dan komunikasi antar layanan berbasis event. Layanan merchant akan mengirimkan data ke event broker, yang kemudian akan disimpan di layanan transaksi. Dalam service choreography, setiap layanan akan mengirimkan pesan ke event broker, dan layanan transaksi akan mendengarkan pesan tersebut, bukan memanggil layanan lain secara langsung.
+
+Kelebihan dari service choreography antara lain agregasi tidak tergantung pada mikroservis lain, agregasi mikroservis dapat lebih cepat karena tidak perlu berkomunikasi dengan mikroservis lain, dan tidak perlu melakukan perubahan pada agregasi mikroservis ketika menambahkan mikroservis baru. Namun, ada juga beberapa kekurangan, seperti sulitnya debugging ketika terjadi masalah karena logika bisnis terdistribusi di semua mikroservis, dan sulitnya memahami keseluruhan logika bisnis karena tersebar di beberapa mikroservis.
+
+-berbeda dgn orchestration, jika di orches kita melakukan direct call menggunaakn remote procedure. di choreo hanya menggunakan messaging. 
+-dalam service choreography, komunikasi aggregation service dengan microservice lainnya menggunakan messaging.
+-dalam service orchestration, aggregation microservice adalah service yang sangat kompleks dan mengerti semua alur business logic, sedangkan berbeda dengan service choreo, semua microserv dituntut untuk menjadi pintar, tidak hanya dengan diperintah oleh aggregation microservice. 
+
+
+dalam kasus transaksi ecomres. user hanya berinteraksi dengan transaction service. komunikasinya berbasiskan event. merchant service akan mengirim data ke merchant event, maka merchant event akan menyimpan data di transaction service, dimana service ini akan mempunyai duplikasi data dari event tersebut. jika di orches sistemnya memanggil semua service/persistence microservice, maka di choreo setiap service akan mengirim ke event/message broker dan transaction service akan me-listen, bukan call (kebalikannya). 
+
+kelebihan :
+-aggregation tidak bergantung dgn microserv lain 
+-aggre microserv akan lebih cepat, karena tidak perlu berkomunikasi dengan microservice lain.
+-jika ada microservice baru, aggregation microsserv tidak perlu melakukan perbuahan lagi.
+
+kekurangna :
+-lebih sulit di-debug Ketika terjadi masalah -> jika di orches, kita bisa mudah melihat error karena tinggal cek di transaction service dan cek error nya di service apa. kalau di choreo sulit cek error karena logic sudah tersebar dan komunikasinya sudah asyncronus. 
+-business logic akan terdistribusi di semua microservices, sehingga sulit dimengerti secara keseluruhan. 
